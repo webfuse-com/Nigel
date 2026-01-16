@@ -320,3 +320,16 @@ window.mesh = {
 //////////////////////////////////////////////////////////////////////////////
 ///////////////////////END INJECT MESH OVERLAY///////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
+
+
+// Listen for and run delegated automation calls right in content window
+browser.runtime.onMessage
+  .addListener(message => {
+    if (message.type !== "automation") return;
+
+    console.log(message.data)
+    return browser.webfuseSession
+      .automation[message.data.automationScope][message.data.automationMethod](
+        ...message.data.automationArgs
+      );
+  });

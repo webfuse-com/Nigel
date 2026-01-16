@@ -1,33 +1,26 @@
 // ==========================================================
 // CLIENT TOOLS (exactly as you specified; preserved verbatim)
 // ==========================================================
-const rootSelector = "body";
+function delegateAutomation(automationScope, automationMethod, ...automationArgs) {
+  return browser.tabs
+    .sendMessage(0, {
+      type: "automation",
+      data: {
+        automationScope,
+        automationMethod,
+        automationArgs
+      }
+    });
+}
+
 const CLIENT_TOOLS = {
   async take_dom_snapshot() {
-    const fullSnapshot = await browser.webfuseSession
-      .automation
-      .take_dom_snapshot({
-        rootSelector: rootSelector,
-        modifier: {
-          name: 'D2Snap',
-          params: {
-            hierarchyRatio: 0, textRatio: 0, attributeRatio: 0,
-            options: {
-              assignUniqueIDs: true,
-              keepUnknownElements: true
-            }
-
-          }
-        }
-      });
+    const fullSnapshot = await delegateAutomation('see', 'domSnapshot', {
+      assignUniqueIDs: true
+    });
     const finalSnapshot = ((fullSnapshot.length / 4) < 2 ** 13.97)
       ? fullSnapshot
-      : browser.webfuseSession
-        .automation
-        .take_dom_snapshot({
-          rootSelector: rootSelector,
-          modifier: "downsample"
-        });
+      : await delegateAutomation('tool', 'downsample', fullSnapshot);
 
     console.debug("Snapshot:", finalSnapshot);
 
@@ -37,7 +30,7 @@ const CLIENT_TOOLS = {
     // Step 1: get a valid ImageBitmap (non-zero size)
     let ib;
     for (let i = 0; i < 3; i++) {
-      ib = await browser.webfuseSession.automation.take_gui_snapshot(); // alias of takeScreenshot()
+      ib = await delegateAutomation('see', 'guiSnapshot'); // alias of takeScreenshot()
       if (ib && ib.width > 0 && ib.height > 0) break;
       await new Promise(r => setTimeout(r, 200)); // brief retry if blank
     }
@@ -87,26 +80,20 @@ const CLIENT_TOOLS = {
   async mouse_move({ x, y }) {
     console.debug("[mouse_move] CSS selector:", selector);
 
-    return browser.webfuseSession
-      .automation
-      .mouse_move([x, y], true);
+    return await delegateAutomation('act', 'mouseMove', [x, y], { moveMouse: true });
   },
 
   async scroll({ direction, amount, selector }) {
     console.debug("[scroll] CSS selector:", selector);
 
-    return browser.webfuseSession
-      .automation
-      .scroll(direction, amount, selector, true);
+    return await delegateAutomation('act', 'scroll', direction, amount, selector, { moveMouse: true });
   },
 
   async leftClick({ selector }) {
     console.log("🖱️ Webfuse leftClick tool");
     console.debug("[left_click] CSS selector:", selector);
 
-    return browser.webfuseSession
-      .automation
-      .left_click(selector, true);
+    return await delegateAutomation('act', 'click', selector, { moveMouse: true });
   },
 
   async type({ text, selector }) {
@@ -116,7 +103,7 @@ const CLIENT_TOOLS = {
     // wait up to a few seconds for the element to exist
     await browser.webfuseSession.automation.wait(selector, 5000);
 
-    return browser.webfuseSession.automation.type(selector, text, true, true);
+    return await delegateAutomation('act', 'type', selector, text, { moveMouse: true });
   },
 
   highlight({ selector }) {
