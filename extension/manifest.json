@@ -1,10 +1,11 @@
 {
     "manifest_version": 3,
     "version": "1.0",
-    "name": "ElevenLabs Voice Agent",
+    "name": "Nigel",
     "host_permissions": [
         "https://*.elevenlabs.io/*",
         "ws://*.elevenlabs.io/*",
+        "wss://livekit.rtc.elevenlabs.io/*",
         "https://extensions.webfu.se/*",
         "https://api.iconify.design/*",
         "https://api.unisvg.com/*",

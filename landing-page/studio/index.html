@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>Nigel, the Coding Butler</title>
+		<link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
+		<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/webfuse-com/nigel-butler-demo/refs/heads/main/landing-page/img/nigel-icon.png">
+		<link rel="stylesheet" href="./index.css">
+		<script type="module" src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+		<script src="./index.js"></script>
+	</head>
+	<body>
+		<aside class="l">
+			<ul id="demo">
+				<li data-query="Make my cursor look like a horse">
+					<img src="https://raw.githubusercontent.com/webfuse-com/nigel-butler-demo/refs/heads/main/landing-page/img/demo-0.gif">
+				</li>
+				<li data-query="Make the logo spin">
+					<img src="https://raw.githubusercontent.com/webfuse-com/nigel-butler-demo/refs/heads/main/landing-page/img/demo-1.gif">
+				</li>
+				<li data-query="Make my cursor a potato">
+					<img src="https://raw.githubusercontent.com/webfuse-com/nigel-butler-demo/refs/heads/main/landing-page/img/demo-2.gif">
+				</li>
+				<li data-query="Theme this page as outer space">
+					<img src="https://raw.githubusercontent.com/webfuse-com/nigel-butler-demo/refs/heads/main/landing-page/img/demo-3.gif">
+				</li>
+				<li data-query="Throw in some great text CSS">
+					<img src="https://raw.githubusercontent.com/webfuse-com/nigel-butler-demo/refs/heads/main/landing-page/img/demo-4.gif">
+				</li>
+				<li data-query="Create a rainy effect on the page">
+					<img src="https://raw.githubusercontent.com/webfuse-com/nigel-butler-demo/refs/heads/main/landing-page/img/demo-5.gif">
+				</li>
+				<li data-query="Take me to Google and make the logo dance">
+					<img src="https://raw.githubusercontent.com/webfuse-com/nigel-butler-demo/refs/heads/main/landing-page/img/demo-6.gif">
+				</li>
+				<li data-query="Make the glow on the moon red">
+					<img src="https://raw.githubusercontent.com/webfuse-com/nigel-butler-demo/refs/heads/main/landing-page/img/demo-7.gif">
+				</li>
+				<li data-query="I want to move it around with my arrow keys">
+					<img src="https://raw.githubusercontent.com/webfuse-com/nigel-butler-demo/refs/heads/main/landing-page/img/demo-8.gif">
+				</li>
+			</ul>
+			<div id="demo-overlay">
+				<img>
+				<span></span>
+			</div>
+		</aside>
+		<main>
+			<section class="hero">
+				<div>
+					<span>
+						<h1>Nigel</h1> <small>the</small>
+						<br>
+						<i>Coding</i> Butler
+					</span>
+					<div>
+						<img class="l" src="https://raw.githubusercontent.com/webfuse-com/nigel-butler-demo/refs/heads/main/landing-page/img/nigel.png" alt="Nigel">
+						<img class="s" src="https://raw.githubusercontent.com/webfuse-com/nigel-butler-demo/refs/heads/main/landing-page/img/nigel-icon.png" alt="Nigel">
+					</div>
+				</div>
+				<p>
+					While other agents operate blindly, Nigel perceives your page in full and rewrites it with impeccable precision – injecting code to meet your every whim.
+				</p>
+				<p>
+					Command the web with <i>elegance</i>.
+				</p>
+			</section>
+			<section class="search">
+				<input
+					id="query"
+					type="text"
+					maxlength="250"
+					placeholder="Where shall I take you, Sir?"
+					onkeypress="(event.key === 'Enter') && NIGEL.call(event.target.value)"
+				>
+				<button
+					type="button"
+					onclick="NIGEL.call(document.querySelector('#query').value)"
+				>
+					<span class="l">Call Nigel</span>
+					<iconify-icon icon="mage:notification-bell" width="32" height="32"></iconify-icon>
+				</button>
+			</section>
+			<section class="logos">
+				<span class="l">Powered by</span>
+				<a href="https://elevenlabs.io" target="_blank">
+					<img src="https://raw.githubusercontent.com/webfuse-com/nigel-butler-demo/refs/heads/main/landing-page/img/elevenlabs-logo.svg" alt="ElevenLabs">
+				</a>
+				<a href="https://www.webfuse.com" target="_blank">
+					<img src="https://raw.githubusercontent.com/webfuse-com/nigel-butler-demo/refs/heads/main/landing-page/img/webfuse-logo.svg" alt="Webfuse" style="transform: translateY(-1px);">
+				</a>
+			</section>
+		</main>
+	</body>
+</html>
